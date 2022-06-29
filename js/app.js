@@ -68,6 +68,7 @@ function renderizarCarrito() {
   carritoHTML.innerHTML = html;
 
   calcularTotal();
+  
 }
 
 function calcularTotal() {
@@ -77,6 +78,7 @@ function calcularTotal() {
     total += producto.precio * producto.cantidad;
   });
 
+  
   console.log(total);
 }
 // Funcion para eliminar productos del carrito
