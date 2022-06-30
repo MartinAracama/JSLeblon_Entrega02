@@ -41,6 +41,8 @@ function agregarProductoAlCarrito(id) {
     carrito.push(producto);
   }
 
+
+
   renderizarCarrito();
 }
 
@@ -81,6 +83,7 @@ function calcularTotal() {
   
   console.log(total);
 }
+
 // Funcion para eliminar productos del carrito
 const eliminarProductoDelCarrito = (id) => {
   console.log(carrito[id].cantidad); 
