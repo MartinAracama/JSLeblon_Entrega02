@@ -1,5 +1,6 @@
 
 const carrito = [];
+const carritoEnLS = JSON.parse( localStorage.getItem('carrito') )
 
 
 // DOM de productos
@@ -41,7 +42,7 @@ function agregarProductoAlCarrito(id) {
     carrito.push(producto);
   }
 
-
+  localStorage.setItem('carrito', JSON.stringify(carrito))
 
   renderizarCarrito();
 }
@@ -93,6 +94,9 @@ const eliminarProductoDelCarrito = (id) => {
   if (carrito[id].cantidad == 0) {
     carrito.splice(id, 1);
   }
+
+  localStorage.setItem('carrito', JSON.stringify(carrito))
+
 
   renderizarCarrito();
 };
