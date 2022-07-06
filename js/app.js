@@ -1,7 +1,5 @@
-
 const carrito = [];
-const carritoEnLS = JSON.parse( localStorage.getItem('carrito') )
-
+const carritoEnLS = JSON.parse(localStorage.getItem("carrito"));
 
 // DOM de productos
 function renderizarProductos() {
@@ -28,7 +26,6 @@ function renderizarProductos() {
 
 renderizarProductos();
 
-
 // Funcion para agregar productos al carrito
 function agregarProductoAlCarrito(id) {
   let producto = BASE.find((producto) => producto.id == id);
@@ -42,7 +39,11 @@ function agregarProductoAlCarrito(id) {
     carrito.push(producto);
   }
 
-  localStorage.setItem('carrito', JSON.stringify(carrito))
+  // // APLICACION DE OPERADOR TERNARIO
+  // let productoEnCarrito = carrito.find((producto) => producto.id == id)
+  //   ? productoEnCarrito.cantidad++:(producto.cantidad = 1); carrito.push(producto);
+
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 
   renderizarCarrito();
 }
@@ -71,7 +72,6 @@ function renderizarCarrito() {
   carritoHTML.innerHTML = html;
 
   calcularTotal();
-  
 }
 
 function calcularTotal() {
@@ -81,13 +81,12 @@ function calcularTotal() {
     total += producto.precio * producto.cantidad;
   });
 
-  
   console.log(total);
 }
 
 // Funcion para eliminar productos del carrito
 const eliminarProductoDelCarrito = (id) => {
-  console.log(carrito[id].cantidad); 
+  console.log(carrito[id].cantidad);
   carrito[id].cantidad--;
   console.log(carrito[id].cantidad);
 
@@ -95,11 +94,7 @@ const eliminarProductoDelCarrito = (id) => {
     carrito.splice(id, 1);
   }
 
-  localStorage.setItem('carrito', JSON.stringify(carrito))
-
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 
   renderizarCarrito();
 };
-
-
-
