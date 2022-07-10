@@ -1,6 +1,8 @@
+
 const carrito = [];
 const carritoEnLS = JSON.parse(localStorage.getItem("carrito"));
 
+ 
 // DOM de productos
 function renderizarProductos() {
   let tienda = document.getElementById("tienda");
@@ -29,6 +31,19 @@ renderizarProductos();
 // Funcion para agregar productos al carrito
 function agregarProductoAlCarrito(id) {
   let producto = BASE.find((producto) => producto.id == id);
+  
+// TOASTIFY  
+  Toastify({
+    text: `Agregaste ${producto.nombre} a tu orden`,
+    duration: 3000,
+    gravity: "", // `top` or `bottom`
+    position: "left", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)",
+    },
+    onClick: function(){} // Callback after click
+  }).showToast();
 
   let productoEnCarrito = carrito.find((producto) => producto.id == id);
 
@@ -38,15 +53,18 @@ function agregarProductoAlCarrito(id) {
     producto.cantidad = 1;
     carrito.push(producto);
   }
+  
+  
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+
+  renderizarCarrito();
+  }
 
   // // APLICACION DE OPERADOR TERNARIO
   // let productoEnCarrito = carrito.find((producto) => producto.id == id)
   //   ? productoEnCarrito.cantidad++:(producto.cantidad = 1); carrito.push(producto);
 
-  localStorage.setItem("carrito", JSON.stringify(carrito));
 
-  renderizarCarrito();
-}
 
 function renderizarCarrito() {
   let carritoHTML = document.getElementById("carrito");
@@ -57,7 +75,7 @@ function renderizarCarrito() {
     html += `
         <div class="col-12 col-md-4 mb-5 d-flex justify-content-center">
             <div class="card text-dark" style="width: 18rem;">
-                <img class="card-img-top" src="${producto.img}" alt="Card image cap">
+                <img class="card-img-top" src="${producto.img}" alt="${producto.nombre}">
                 <div class="card-body">
                     <h5 class="card-title">${producto.nombre}</h5>
                     <p>$${producto.precio}</p>
@@ -81,7 +99,9 @@ function calcularTotal() {
     total += producto.precio * producto.cantidad;
   });
 
+  total.innerHTML = html;
   console.log(total);
+  alert("El total es : $" + total)
 }
 
 // Funcion para eliminar productos del carrito
@@ -98,3 +118,4 @@ const eliminarProductoDelCarrito = (id) => {
 
   renderizarCarrito();
 };
+
