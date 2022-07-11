@@ -1,30 +1,40 @@
 
 const carrito = [];
-const carritoEnLS = JSON.parse(localStorage.getItem("carrito"));
+const carritoEnLS = JSON.parse(localStorage.getItem("carrito")) || [];
 
+// Swal.fire("Bienvenidos a Leblon Burgers!!")
  
 // DOM de productos
-function renderizarProductos() {
-  let tienda = document.getElementById("tienda");
 
-  BASE.forEach((e) => {
-    let productoHTML = `
+// fetch("../BASE.json")
+//     .then((resp) => resp.json())
+//     .then((BASE) => {
+//       console.log(BASE)
 
-        <div class="col-12 col-md-4 mb-5 d-flex justify-content-center">
-        <div class="card text-dark" style="width: 18rem;">
-            <img class="card-img-top" src="${e.img}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">${e.nombre}</h5>
-                <p class="card-text">${e.descripcion}</p>
-                <p>$${e.precio}</p>
-                <button class="btn btn-primary" onClick="agregarProductoAlCarrito(${e.id})">Añadir al carrito</button>
-            </div>
-        </div>
-        </div>
-        `;
-    tienda.innerHTML += productoHTML;
-  });
-}
+      function renderizarProductos() {
+        let tienda = document.querySelector("#tienda");
+      
+                BASE.forEach((e) => {
+                  let productoHTML = `
+              
+                      <div class="col-12 col-md-4 mb-5 d-flex justify-content-center">
+                      <div class="card text-dark" style="width: 18rem;">
+                          <img class="card-img-top" src="${e.img}" alt="Card image cap">
+                          <div class="card-body">
+                              <h5 class="card-title">${e.nombre}</h5>
+                              <p class="card-text">${e.descripcion}</p>
+                              <p>$${e.precio}</p>
+                              <button class="btn btn-primary" onClick="agregarProductoAlCarrito(${e.id})">Añadir al carrito</button>
+                          </div>
+                      </div>
+                      </div>
+                      `;
+                  tienda.innerHTML += productoHTML;
+                })
+      }
+    // })
+
+    
 
 renderizarProductos();
 
@@ -32,18 +42,18 @@ renderizarProductos();
 function agregarProductoAlCarrito(id) {
   let producto = BASE.find((producto) => producto.id == id);
   
-// TOASTIFY  
-  Toastify({
-    text: `Agregaste ${producto.nombre} a tu orden`,
-    duration: 3000,
-    gravity: "", // `top` or `bottom`
-    position: "left", // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
-    style: {
-      background: "linear-gradient(to right, #00b09b, #96c93d)",
-    },
-    onClick: function(){} // Callback after click
-  }).showToast();
+    // TOASTIFY  
+      Toastify({
+        text: `Agregaste una ${producto.nombre} a tu orden`,
+        duration: 3500,
+        gravity: "top", 
+        position: "right", 
+        stopOnFocus: true, 
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
 
   let productoEnCarrito = carrito.find((producto) => producto.id == id);
 
@@ -59,12 +69,6 @@ function agregarProductoAlCarrito(id) {
 
   renderizarCarrito();
   }
-
-  // // APLICACION DE OPERADOR TERNARIO
-  // let productoEnCarrito = carrito.find((producto) => producto.id == id)
-  //   ? productoEnCarrito.cantidad++:(producto.cantidad = 1); carrito.push(producto);
-
-
 
 function renderizarCarrito() {
   let carritoHTML = document.getElementById("carrito");
@@ -106,16 +110,31 @@ function calcularTotal() {
 
 // Funcion para eliminar productos del carrito
 const eliminarProductoDelCarrito = (id) => {
+  
+  // // TOASTIFY  
+  Toastify({
+    text: `eliminaste un producto de tu orden`,
+    duration: 3000,
+    gravity: "top", 
+    position: "right", 
+    stopOnFocus: true, 
+    style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)",
+    },
+    onClick: function(){} // Callback after click
+  }).showToast();
+  
   console.log(carrito[id].cantidad);
   carrito[id].cantidad--;
   console.log(carrito[id].cantidad);
-
+  
   if (carrito[id].cantidad == 0) {
     carrito.splice(id, 1);
   }
-
+  
+  
   localStorage.setItem("carrito", JSON.stringify(carrito));
-
+  
   renderizarCarrito();
 };
 
