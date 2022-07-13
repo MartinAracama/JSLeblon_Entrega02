@@ -2,7 +2,7 @@
 const carrito = [];
 const carritoEnLS = JSON.parse(localStorage.getItem("carrito")) || [];
 
-// Swal.fire("Bienvenidos a Leblon Burgers!!")
+Swal.fire("Bienvenidos a Leblon Burgers!!")
  
 // DOM de productos
 
@@ -32,7 +32,7 @@ const carritoEnLS = JSON.parse(localStorage.getItem("carrito")) || [];
                   tienda.innerHTML += productoHTML;
                 })
       }
-    // })
+    
 
     
 
@@ -105,7 +105,7 @@ function calcularTotal() {
 
   total.innerHTML = html;
   console.log(total);
-  alert("El total es : $" + total)
+  Swal.fire("El total es : $" + ${total})
 }
 
 // Funcion para eliminar productos del carrito
