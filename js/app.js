@@ -105,7 +105,8 @@ function calcularTotal() {
 
   total.innerHTML = html;
   console.log(total);
-  Swal.fire("El total es : $" + ${total})
+  Swal.fire(`El total es $ ${total}
+  `)
 }
 
 // Funcion para eliminar productos del carrito
