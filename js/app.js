@@ -6,36 +6,34 @@ Swal.fire("Bienvenidos a Leblon Burgers!!")
  
 // DOM de productos
 
-// fetch("../BASE.json")
-//     .then((resp) => resp.json())
-//     .then((BASE) => {
-//       console.log(BASE)
+fetch("../BASE.json")
+    .then((resp) => resp.json())
+    .then((BASE) => {
+      renderizarProductos(BASE)
+    }),
+    console.log(BASE)
 
-      function renderizarProductos() {
-        let tienda = document.querySelector("#tienda");
+function renderizarProductos(BASE) {
+    const tienda = document.querySelector("#tienda");
       
-                BASE.forEach((e) => {
-                  let productoHTML = `
-              
-                      <div class="col-12 col-md-4 mb-5 d-flex justify-content-center">
-                      <div class="card text-dark" style="width: 18rem;">
-                          <img class="card-img-top" src="${e.img}" alt="Card image cap">
-                          <div class="card-body">
-                              <h5 class="card-title">${e.nombre}</h5>
-                              <p class="card-text">${e.descripcion}</p>
-                              <p>$${e.precio}</p>
-                              <button class="btn btn-primary" onClick="agregarProductoAlCarrito(${e.id})">Añadir al carrito</button>
-                          </div>
-                      </div>
-                      </div>
-                      `;
-                  tienda.innerHTML += productoHTML;
-                })
+      BASE.forEach((e) => {
+        let productoHTML = `
+            <div class="col-12 col-md-4 mb-5 d-flex justify-content-center">
+            <div class="card text-dark" style="width: 18rem;">
+                <img class="card-img-top" src="${e.img}" alt="Card image cap">
+                 <div class="card-body">
+                    <h5 class="card-title">${e.nombre}</h5>
+                    <p class="card-text">${e.descripcion}</p>
+                    <p>$${e.precio}</p>
+                     <button class="btn btn-primary" onClick="agregarProductoAlCarrito(${e.id})">Añadir al carrito</button>
+                 </div>
+            </div>
+             </div>
+             `;
+        tienda.innerHTML += productoHTML;
+       })
       }
     
-
-    
-
 renderizarProductos();
 
 // Funcion para agregar productos al carrito
@@ -105,8 +103,7 @@ function calcularTotal() {
 
   total.innerHTML = html;
   console.log(total);
-  Swal.fire(`El total es $ ${total}
-  `)
+  Swal.fire(`El total es $ ${total}`)
 }
 
 // Funcion para eliminar productos del carrito
