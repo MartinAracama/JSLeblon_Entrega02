@@ -1,19 +1,23 @@
 
-const carrito = [];
+let carrito = [];
 const carritoEnLS = JSON.parse(localStorage.getItem("carrito")) || [];
 
-Swal.fire("Bienvenidos a Leblon Burgers!!")
+Swal.fire("Bienvenido a Leblon Burgers!! - Hace tu pedido!")
  
 // DOM de productos
 
+BASE = [] // Aca se copiará lo qu está en el .json
+
 fetch("../BASE.json")
     .then((resp) => resp.json())
-    .then((BASE) => {
-      renderizarProductos(BASE)
+    .then((data) => {
+      BASE = data // se copia en el arreglo BASE lo que viene desde data
+      renderizarProductos()
+      renderizarCarrito()
     }),
     console.log(BASE)
 
-function renderizarProductos(BASE) {
+function renderizarProductos() { // no se recibe nada porque se accede al arreglo ]BASE
     const tienda = document.querySelector("#tienda");
       
       BASE.forEach((e) => {
@@ -94,16 +98,26 @@ function renderizarCarrito() {
   calcularTotal();
 }
 
+// Cálculo del total
 function calcularTotal() {
   let total = 0;
 
-  carrito.forEach((producto) => {
-    total += producto.precio * producto.cantidad;
-  });
+    carrito.forEach((producto) => {
+      total += producto.precio * producto.cantidad;
+    });
 
-  total.innerHTML = html;
-  console.log(total);
-  Swal.fire(`El total es $ ${total}`)
+    total.innerHTML = html;
+    console.log(total);
+
+    // SweetAlert: boton "cuanto es" flotante sobre la izquierda. Al clikear muestra el importe total del carrito
+    const btnSwall = document.querySelector('#total')
+
+    btnSwall.addEventListener("click", () => {
+
+      Swal.fire({
+        title: `El total es $ ${total}`,
+      })
+    })
 }
 
 // Funcion para eliminar productos del carrito
